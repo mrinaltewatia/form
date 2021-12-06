@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ******* IMPORTANT ******READ PLEASE-->
+    <!-- Defer is used so as the script is executed when the page has finished parsing -->
+    <script src="scripts/validate.js" defer></script>
+    <!-- <script src="scripts/value.js" defer></script> -->
+
+    <script src="scripts/event.js" defer></script>
+    <script src="scripts/item.js"></script>
+    <link href="scripts/style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+
+<!-- This is only the order form section of the contact/order page, not the entire content. Not final. -->
+
+<body>
+
+    <h2>Order</h2>
+    <!-- added an onsubmit for the form -->
+    <form onsubmit="return validate(event)" name="orderInfo">
+
+        <!-- Pizza gallery checkbox -->
+        <!-- At least one checked is required but multiple is acceptable -->
+        <!-- Incomplete until we decide menu items and prices -->
+        <h3>Pizza Menu</h3>
+        <div class="galleryContainer">
+            <a class="prev">&#10094;</a>
+            <fieldset id="items-menu">
+                <!-- Hide checkboxes with CSS -->
+            </fieldset>
+            <!-- Next and previous buttons -->
+
+            <a class="next">&#10095;</a>
+        </div>
+
+        <!-- Cart, Items and Prices -->
+        <div class="cartContainer">
+            <!-- Will contain a list of items and their prices, updated based on item selection
+            Will also display the total for all items together. This should be done with JavaScript
+            Need to decide menu items and prices -->
+            <span id="totalCost">Empty</span>
+
+        </div>
+
+        <!-- Customer Information -->
+        <h3>Customer Information</h3>
+        <div class="infoContainer">
+
+
+            <div>
+                <label for="fName">First Name</label>
+                <input type="text" id="fName" name="firstName">
+                <!-- Always required -->
+                <span class="alert" id="fNameError"></span>
+            </div>
+
+            <div>
+                <label for="lname">Last Name</label>
+                <input type="text" id="lName" name="lastName">
+                <!-- Always required -->
+                <span class="alert" id="lNameError"></span>
+            </div>
+
+            <div>
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address">
+                <!-- Only required if delivery is selected -->
+                <span class="alert" id="addressError"></span>
+            </div>
+
+            <div>
+                <label for="postal">Postal Code</label>
+                <input type="text" id="postal" name="postalCode">
+                <!-- Only required if delivery is selected -->
+                <span class="alert" id="postalError"></span>
+            </div>
+
+            <div>
+                <label for="apt">Apt.</label>
+                <input type="text" id="apt" name="apartmentNumber">
+            </div>
+
+            <div>
+                <label for="card">Credit Card</label>
+                <input id="card" name="creditCard" maxlength=15>
+            </div>
+        </div>
+        </div>
+        <!-- Pickup or Delivery, One selection is required -->
+        <div class="orderType">
+            <fieldset id='orderTypes'>
+
+                <div>
+                    <input type="radio" id="pickup" name="orderType" value="pickup">
+                    <label for="pickup">Pickup</label>
+
+                </div>
+                <div id='fieldsetError' class='alert'></div>
+                <div>
+                    <input type="radio" id="delivery" name="orderType" value="delivery">
+                    <label for="delivery">Delivery</label>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- Submit button -->
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        /**
+         * Updates the total value of items selected in the DOM
+         * 
+         * */
+        function updateTotal() {
+            const total = getCheckedItemsValue()
+            document.querySelector("#totalCost").textContent = `$${total}`
+        }
+
+        /**
+         * Appends all items in the DOM by looping through the itemsList object
+         * 
+         * */
+        function printItemsMenu() {
+            // parent DOM node where menu items are to be appended
+            const parent = document.querySelector("#items-menu")
+                // get the keys of items object in an array
+            const keys = Object.keys(window.itemsList)
+                // loop through keys
+            keys.forEach((key) => {
+                // destructure object and get label and price from itemsList
+
+                const price = window.itemsList[key].price
+                const label = window.itemsList[key].label
+                const img = window.itemsList[key].img
+
+                // append HTML string in the parent node
+                parent.innerHTML +=
+                    `<div class="itemSlides">
+                        <div class="itemName">${label}</div>
+                        <input type="checkbox" id="${key}" name="${key}" value="${key}" onchange="updateTotal()">
+                        <label for="${key}">
+                            <img src="${img}">
+                        </label>
+                        <div class="itemPrice">$${price}</div>
+                    </div>`
+            })
+        }
+        // window.onload is a function which is called after the page is fully loaded
+        window.onload = () => {
+            printItemsMenu()
+        }
+    </script>
+</body>
