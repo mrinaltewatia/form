@@ -1,0 +1,281 @@
+/* stylesheet */
+
+
+/*
+*  CSS TABLE OF CONTENTS
+*
+*  A - GLOBAL/MOBILE STYLES
+*  1.0 - global page setup
+*  1.1 - global font styles
+*  2.0 - global container styles
+*  2.1 - gallery container styles
+*  2.2 - item slides styles
+*  2.3 - cart container styles
+*  2.4 - info container styles
+*  2.5 - order type styles
+*  3.0 - button styles
+*  3.1 - order type styles
+*
+*  B - TABLET STYLES
+*  2.4 - info container styles
+*/
+
+
+/***============== A global/mobile version min (376-780px) ==============***/
+
+
+/*** 1.0 - global page setup-------------------------*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*** 1.1 - global font styles ***/
+
+* {
+    font-family: 'Libre Baskerville', serif;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20pt;
+    text-align: center;
+}
+
+h3 {
+    font-size: 16pt;
+}
+
+
+/*** 2.0 - global container styles-------------------------*/
+
+form {
+    width: 80%;
+    min-width: 345px;
+    max-width: 800px;
+    margin: auto;
+    background: rgb(255, 255, 255);
+    border: solid rgb(255, 0, 0);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.alert {
+    color: red;
+}
+
+
+/*** 2.1 - gallery container styles ***/
+
+.galleryContainer {
+    display: flex;
+}
+
+.galleryContainer a {
+    width: 2.5%;
+    text-align: center;
+    margin: auto 3.75% auto 3.75%;
+    border: 1px solid black;
+    border-radius: 50px;
+}
+
+.galleryContainer fieldset {
+    display: flex;
+    width: 90%;
+    flex-wrap: wrap;
+}
+
+
+/*** 2.2 - item slides styles ***/
+
+.itemSlides {
+    width: 15%;
+    margin: auto;
+}
+
+.itemSlides img {
+    width: 100%;
+}
+
+
+/*** 2.3 - cart container styles ***/
+
+.cartContainer {
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    border: 1px solid;
+    margin: 10px 0 10px 0;
+}
+
+
+/*** 2.4 - info container styles ***/
+
+.infoContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.infoContainer div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0 0px 0;
+}
+
+.infoContainer>div>input {
+    width: 90%;
+    margin: auto;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+
+/* removing the arrow on the numbers */
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.infoContainer>div>label {
+    margin-left: 20px;
+}
+
+
+/*** 2.5 - order type styles ***/
+
+.orderType>fieldset {
+    display: flex;
+    margin-top: 10px;
+}
+
+.orderType>fieldset>div {
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
+/*** button styles-------------------------*/
+
+
+/*** 3.1 - order type styles ***/
+
+@keyframes example {
+    0% {
+        background-color: white;
+    }
+    70% {
+        background-color: green;
+    }
+}
+
+input[type=submit] {
+    margin: 10px auto;
+    width: 100px;
+    height: 30px;
+    border: 10px;
+    transition: width 1s;
+}
+
+input[type=submit]:hover {
+    width: 150px;
+    animation-name: example;
+    animation-duration: 2.5s;
+}
+
+input[type="text"] {
+    outline: rgb(0, 0, 0);
+    padding: 4px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 10px 0 rgb(61, 56, 56);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+
+/***============== B tablet version (780px) ==============***/
+
+@media screen and (min-width: 780px) {
+    /*** 2.4 - info container styles ***/
+    .infoContainer div {
+        width: 50%;
+    }
+    .infoContainer :is(div:nth-child(3n+3)) {
+        width: 100%;
+    }
+    .infoContainer>div>input {
+        width: 90%;
+    }
+    .infoContainer :is(div:nth-child(3n+3)) input {
+        width: 95%;
+    }
+}
+
+
+/** Added majority of my css here, so you dont get mixed with it**/
+
+.orderType>fieldset>div>label {
+    border: 1px solid #fff;
+    padding: 10px;
+    display: block;
+    position: relative;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.orderType>fieldset>div>label:before {
+    color: rgb(255, 255, 255);
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 28px;
+    transition-duration: .5s;
+    transform: scale(0);
+}
+
+.orderType>fieldset>div>:checked+label {
+    border-radius: 100%;
+    border: 1px solid red;
+    transition-duration: 1s;
+    transform: scale(1);
+}
+
+.orderType>fieldset>div>:checked+label:before {
+    content: ' \2713';
+    background-color: green;
+    transform: scale(1);
+}
